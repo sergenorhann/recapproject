@@ -1,7 +1,7 @@
 ﻿using Business.Concrete;
 using Core.Utilities.Helper;
 using DataAccess.Concrete.EntityFramework;
-using Entities.Concrete;
+using Core.Entities.Concrete;
 using System;
 using System.IO;
 
