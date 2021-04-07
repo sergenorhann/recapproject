@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Core.Utilities.Business;
 
 namespace Business.Concrete
 {
@@ -23,6 +24,12 @@ namespace Business.Concrete
         [ValidationAspect(typeof(ColorValidator))]
         public IResult Add(Color color)
         {
+            var result = BusinessRules.Run(
+                CheckIfColorNameExists(color.Name));
+            if (result != null)
+            {
+                return result;
+            }
             _colorDal.Add(color);
             return new SuccessResult(Messages.ColorAdded);
         }
@@ -37,12 +44,28 @@ namespace Business.Concrete
         }
         public IResult Update(Color color)
         {
+            var result = BusinessRules.Run(
+                CheckIfColorNameExists(color.Name));
+            if (result != null)
+            {
+                return result;
+            }
             _colorDal.Update(color);
             return new SuccessResult(Messages.ColorUpdated);
         }
         public IDataResult<Color> GetById(int id)
         {
             return new SuccessDataResult<Color>(_colorDal.Get(c => c.Id == id), Messages.ColorListed);
+        }
+
+        private IResult CheckIfColorNameExists(string colorName)
+        {
+            var result = _colorDal.GetAll(c => c.Name == colorName).Any();
+            if (result)
+            {
+                return new ErrorResult(Messages.ColorNameAlreadyExists);
+            }
+            return new SuccessResult();
         }
     }
 }

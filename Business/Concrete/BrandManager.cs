@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Core.Utilities.Business;
 
 namespace Business.Concrete
 {
@@ -21,8 +22,15 @@ namespace Business.Concrete
             _brandDal = brandDal;
         }
         [ValidationAspect(typeof(BrandValidator))]
+        
         public IResult Add(Brand brand)
         {
+            var result = BusinessRules.Run(
+                CheckIfBrandNameExists(brand.Name));
+            if (result != null)
+            {
+                return result;
+            }
             _brandDal.Add(brand);
             return new SuccessDataResult<Brand>(Messages.BrandAdded);
         }
@@ -37,12 +45,28 @@ namespace Business.Concrete
         }
         public IResult Update(Brand brand)
         {
+            var result = BusinessRules.Run(
+                CheckIfBrandNameExists(brand.Name));
+            if (result != null)
+            {
+                return result;
+            }
             _brandDal.Update(brand);
             return new SuccessDataResult<Brand>(Messages.BrandUpdated);
         }
         public IDataResult<Brand> GetById(int id)
         {
             return new SuccessDataResult<Brand>(_brandDal.Get(b => b.Id == id), Messages.BrandListed);
+        }
+
+        private IResult CheckIfBrandNameExists(string brandName)
+        {
+            var result = _brandDal.GetAll(b => b.Name == brandName).Any();
+            if (result)
+            {
+                return new ErrorResult(Messages.BrandNameAlreadyExists);
+            }
+            return new SuccessResult();
         }
     }
 }

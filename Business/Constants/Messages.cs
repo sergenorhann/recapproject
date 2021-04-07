@@ -23,6 +23,7 @@ namespace Business.Constants
         public static string BrandUpdated = "Brand Updated";
         public static string BrandListed = "Brand Listed";
         public static string BrandsListed = "Brands Listed";
+        public static string BrandNameAlreadyExists = "Brand Name Already Exists";
 
         //Messages of Color
         public static string ColorAdded = "Color Added";
@@ -30,6 +31,7 @@ namespace Business.Constants
         public static string ColorUpdated = "Color Updated";
         public static string ColorListed = "Color Listed";
         public static string ColorsListed = "Colors Listed";
+        public static string ColorNameAlreadyExists = "Color Name Already Exists";
 
         //Messages of Customer
         public static string CustomerAdded = "Customer Added";
