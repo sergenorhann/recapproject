@@ -1,12 +1,7 @@
 ﻿using Business.Abstract;
 using Entities.Concrete;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
+
 
 namespace WebAPI.Controllers
 {
@@ -41,21 +36,10 @@ namespace WebAPI.Controllers
             return BadRequest(result);
 
         }
-        [HttpGet("getallbybrandid")]
-        public IActionResult GetAllByBrandId(int id)
+        [HttpGet("getallbyfilter")]
+        public IActionResult GetAllByFilter(int colorId,int brandId )
         {
-            var result = _carService.GetAllByBrandId(id);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            return BadRequest(result);
-
-        }
-        [HttpGet("getallbycolorid")]
-        public IActionResult GetAllByColorId(int id)
-        {
-            var result = _carService.GetAllByColorId(id);
+            var result = _carService.GetAllByFilter(colorId, brandId);
             if (result.Success)
             {
                 return Ok(result);
@@ -76,6 +60,27 @@ namespace WebAPI.Controllers
         public IActionResult GetCarDetailByCarId(int id)
         {
             var result = _carService.GetCarDetailByCarId(id);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+        [HttpGet("getallbybrandid")]
+        public IActionResult GetAllByBrandId(int brandId)
+        {
+            var result = _carService.GetAllByBrandId(brandId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+
+        }
+        [HttpGet("getallbycolorid")]
+        public IActionResult GetAllByColorId(int colorId)
+        {
+            var result = _carService.GetAllByColorId(colorId);
             if (result.Success)
             {
                 return Ok(result);
