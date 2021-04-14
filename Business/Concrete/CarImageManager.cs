@@ -15,9 +15,6 @@ namespace Business.Concrete
 {
     public class CarImageManager : ICarImageService
     {
-        /*
-            Update bölümünde carid değiştirince hata veriyor. 
-         */
         private readonly ICarImageDal _carImageDal;
 
         public CarImageManager(ICarImageDal carImageDal)
@@ -42,14 +39,12 @@ namespace Business.Concrete
 
         public IResult Delete(CarImage carImage)
         {
-
             var oldPath =_carImageDal.Get(p => p.Id == carImage.Id).ImagePath.ToString();
             var result = BusinessRules.Run(FileHelper.Delete(Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..\\..\\..\\wwwroot"))+oldPath));
             if (result != null)
             {
                 return result;
             }
-
             _carImageDal.Delete(carImage);
             return new SuccessResult(Messages.CarImageDeleted);
         }

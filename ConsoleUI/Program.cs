@@ -135,7 +135,7 @@ namespace ConsoleUI
             //customerManager.Delete(new Customer { Id = 2});
 
             
-            Console.WriteLine("\n--- " + carImageManager.GetById(1).Message.ToUpper() + " ---\n" + carImageManager.GetById(1).Data.Date + "\n");
+            Console.WriteLine("\n--- " + carImageManager.GetById(1).Message.ToUpper() + " ---\n" + carImageManager.GetById(1).Data.ImagePath + "\n");
 
             Console.WriteLine("--- " + carImageManager.GetAll().Message.ToUpper() + " ---");
             foreach (var carImage in carImageManager.GetAll().Data)
