@@ -2,13 +2,8 @@
 using Entities.Concrete;
 using Entities.DTOs;
 using Core.DataAccess.EntityFramework;
-using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccess.Concrete.EntityFramework
 {
@@ -29,7 +24,6 @@ namespace DataAccess.Concrete.EntityFramework
                                  BrandName = b.Name,
                                  ColorName = co.Name,
                                  DailyPrice = c.DailyPrice,
-       
                              };
                 return result.ToList();
             }

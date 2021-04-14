@@ -59,17 +59,12 @@ namespace Business.Concrete
 
         private IResult CheckIfRentalReturnDateNull(int carId)
         {
-            /*
-             * Kiralanacak aracın ReturnDate'i Null olursa araç kirada (ödevlerden biri buydu) demektir. Bundan dolayı araç kiralanamaz.
-               ReturnDate bilgisini göndermeyince tarihi 01.01.0001 olarak kayıt ediyor, Kontrolü şimdilik Null üzerinden yapamıyorum.
-               Bu yüzden kontrolü Null değil, 01.01.0001 üzerinden yaptım.
-            */
-            var result = _RentalDal.GetAll(r => r.CarId == carId).LastOrDefault().ReturnDate;
-            if (result == new DateTime(0001, 01, 01))
+            var result = _RentalDal.GetAll(r => r.CarId == carId);
+            if (result.LastOrDefault()?.ReturnDate!=null || result.Count==0)
             {
-                return new ErrorResult(Messages.CarRented);
+                return new SuccessResult();
             }
-            return new SuccessResult();
+            return new ErrorResult(Messages.CarRented);
         }
     }
 }

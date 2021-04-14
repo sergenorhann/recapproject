@@ -1,40 +1,35 @@
 ﻿using Core.Utilities.Results;
 using Microsoft.AspNetCore.Http;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Core.Utilities.Helper
+
+namespace Core.Utilities.Helpers
 {
     public class FileHelper
     {
-        public static string Add(IFormFile formfile)
+        public static string Add(IFormFile formFile)
         {
-            var (newPath, Path2) = NewPath(formfile);
-            var sourcepath = Path.GetTempFileName();
-            using (var stream = new FileStream(sourcepath, FileMode.Create))
+            var (newPath, path2) = NewPath(formFile);
+            var sourcePath = Path.GetTempFileName();
+            using (var stream = new FileStream(sourcePath, FileMode.Create))
             {
-                formfile.CopyTo(stream);
+                formFile.CopyTo(stream);
             }
-
-            File.Move(sourcepath, newPath);
-
-            return Path2;
+            File.Move(sourcePath, newPath);
+            return path2;
         }
 
-        public static string Update(string sourcePath, IFormFile formfile)
+        public static string Update(string sourcePath, IFormFile formFile)
         {
-            var (newPath, Path2) = NewPath(formfile);
+            var (newPath, path2) = NewPath(formFile);
             using (var stream = new FileStream(newPath, FileMode.Create))
             {
-                formfile.CopyTo(stream);
+                formFile.CopyTo(stream);
             }
 
             File.Delete(sourcePath);
-            return Path2;
+            return path2;
         }
 
         public static IResult Delete(string path)
@@ -43,13 +38,12 @@ namespace Core.Utilities.Helper
             return new SuccessResult();
         }
 
-        public static (string newPath, string Path2) NewPath(IFormFile formfile)
+        public static (string newPath, string Path2) NewPath(IFormFile formFile)
         {
-            FileInfo ff = new (formfile.FileName);
-            string fileExtension = ff.Extension;
+            FileInfo ff = new (formFile.FileName);
+            var fileExtension = ff.Extension;
             var newFileName = Guid.NewGuid().ToString("N") + fileExtension;
-            string path12 = @"\wwwroot\Images\";
-            string result = Environment.CurrentDirectory + path12 + newFileName;
+            var result = Environment.CurrentDirectory + @"\wwwroot\Images\" + newFileName;
             return (result, $"\\Images\\{newFileName}");
         }
     }
