@@ -10,6 +10,7 @@ namespace Core.Utilities.Helpers
     {
         public static string Add(IFormFile formFile)
         {
+            if (formFile==null) return "";
             var (newPath, path2) = NewPath(formFile);
             var sourcePath = Path.GetTempFileName();
             using (var stream = new FileStream(sourcePath, FileMode.Create))
@@ -46,5 +47,6 @@ namespace Core.Utilities.Helpers
             var result = Environment.CurrentDirectory + @"\wwwroot\Images\" + newFileName;
             return (result, $"\\Images\\{newFileName}");
         }
+
     }
 }
