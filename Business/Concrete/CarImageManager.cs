@@ -30,7 +30,7 @@ namespace Business.Concrete
             {
                 return result;
             }
-            carImage.ImagePath = formFile != null ? FileHelper.Add(formFile) : @"\uploads\carDefault.jpg";
+            carImage.ImagePath = formFile != null ? FileHelper.Add(formFile) : @"\Images\carDefault.jpg";
             _carImageDal.Add(carImage);
             return new SuccessResult(Messages.CarImageAdded);
         }

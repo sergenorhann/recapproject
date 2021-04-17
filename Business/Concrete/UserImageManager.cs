@@ -29,7 +29,7 @@ namespace Business.Concrete
             {
                 return result;
             }
-            userImage.ImagePath = formFile != null ? FileHelper.Add(formFile) : @"\uploads\userDefault.jpg";
+            userImage.ImagePath = formFile != null ? FileHelper.Add(formFile) : @"\Images\userDefault.jpg";
             _userImageDal.Add(userImage);
             return new SuccessResult(Messages.UserImageAdded);
         }
