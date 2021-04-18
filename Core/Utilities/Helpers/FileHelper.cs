@@ -29,13 +29,19 @@ namespace Core.Utilities.Helpers
                 formFile.CopyTo(stream);
             }
 
-            File.Delete(sourcePath);
+            if (sourcePath != @"\Images\userDefault.jpg" && sourcePath != @"\Images\carDefault.jpg")
+            {
+                File.Delete(sourcePath);
+            }
             return path2;
         }
 
         public static IResult Delete(string path)
         {
-            File.Delete(path);
+            if (path != @"\Images\userDefault.jpg" && path != @"\Images\carDefault.jpg")
+            {
+                File.Delete(path);
+            }
             return new SuccessResult();
         }
 

@@ -5,43 +5,45 @@ using Core.Aspect.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Business.Concrete
 {
     public class CustomerManager : ICustomerService
     {
-        ICustomerDal _CustomerDal;
+        private readonly ICustomerDal _customerDal;
         public CustomerManager(ICustomerDal customerDal)
         {
-            _CustomerDal = customerDal;
+            _customerDal = customerDal;
         }
+
+
         [ValidationAspect(typeof(CustomerValidator))]
         public IResult Add(Customer customer)
         {
-            _CustomerDal.Add(customer);
+            _customerDal.Add(customer);
             return new SuccessResult(Messages.CustomerAdded);
         }
         public IResult Delete(Customer customer)
         {
-            _CustomerDal.Delete(customer);
+            _customerDal.Delete(customer);
             return new SuccessResult(Messages.CustomerDeleted);
         }
         public IDataResult<List<Customer>> GetAll()
         {
-            return new SuccessDataResult<List<Customer>>(_CustomerDal.GetAll(), Messages.CustomersListed);
+            return new SuccessDataResult<List<Customer>>(_customerDal.GetAll(), Messages.CustomersListed);
         }
         public IDataResult<Customer> GetById(int id)
         {
-            return new SuccessDataResult<Customer>(_CustomerDal.Get(c => c.Id == id), Messages.CustomerListed);
+            return new SuccessDataResult<Customer>(_customerDal.Get(c => c.Id == id), Messages.CustomerListed);
+        }
+        public IDataResult<Customer> GetByUserId(int userId)
+        {
+            return new SuccessDataResult<Customer>(_customerDal.Get(c => c.UserId == userId), Messages.CustomerListed);
         }
         public IResult Update(Customer customer)
         {
-            _CustomerDal.Update(customer);
+            _customerDal.Update(customer);
             return new SuccessResult(Messages.CustomerUpdated);
         }
     }

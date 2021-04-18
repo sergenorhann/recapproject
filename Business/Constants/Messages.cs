@@ -62,7 +62,6 @@ namespace Business.Constants
         public static string CarImageUpdated = "CarImage Updated";
         public static string CarImageListed = "CarImage Listed";
         public static string CarImagesListed = "CarImages Listed";
-        public static string CarImageLimitExceeded = "CarImage Limit Exceeded";
 
         //Messages of UserImage
         public static string UserImageAdded = "UserImage Added";
@@ -70,8 +69,6 @@ namespace Business.Constants
         public static string UserImageUpdated = "UserImage Updated";
         public static string UserImageListed = "UserImage Listed";
         public static string UserImagesListed = "UserImages Listed";
-        public static string UserImageLimitExceeded = "UserImage Limit Exceeded";
-
 
         //DÜZENLE
         public static string UserNotFound = "Kullanıcı bulunamadı";

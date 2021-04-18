@@ -15,36 +15,41 @@ namespace Business.Concrete
 {
     public class CarManager : ICarService
     {
-        internal readonly ICarDal _carDal;
-        public CarManager(ICarDal carDal)
+        private readonly ICarDal _carDal;
+        private readonly ICarImageService _carImageService;
+
+        public CarManager(ICarDal carDal, ICarImageService carImageService)
         {
             _carDal = carDal;
+            _carImageService = carImageService;
         }
         [SecuredOperation("car.add,admin")]
         [ValidationAspect(typeof(CarValidator))]
-        [CacheRemoveAspect("ICarService.Get")]
+        //[CacheRemoveAspect("ICarService.Get")]
         public IResult Add(Car car)
         {
             _carDal.Add(car);
+            _carImageService.Add(new CarImage {CarId = car.Id});
             return new SuccessResult(Messages.CarAdded);
         }
-        [CacheRemoveAspect("ICarService.Get")]
+      //  [CacheRemoveAspect("ICarService.Get")]
         public IResult Delete(Car car)
         {
             _carDal.Delete(car);
+            _carImageService.Delete(_carImageService.GetByCarId(car.Id).Data.Find(ci=>ci.CarId==car.Id));
             return new SuccessResult(Messages.CarDeleted);
         }
-        [CacheAspect]
+      //  [CacheAspect]
         public IDataResult<List<Car>> GetAll()
         {
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(), Messages.CarsListed);
         }
-        [CacheAspect]
+       // [CacheAspect]
         public IDataResult<Car> GetById(int id)
         {
             return new SuccessDataResult<Car>(_carDal.Get(c => c.Id == id), Messages.CarListed);
         }
-        [CacheRemoveAspect("ICarService.Get")]
+     //   [CacheRemoveAspect("ICarService.Get")]
         public IResult Update(Car car)
         {
             _carDal.Update(car);

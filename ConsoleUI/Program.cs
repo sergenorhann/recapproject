@@ -48,41 +48,41 @@ namespace ConsoleUI
         }
         private static void CarTest()
         {
-            CarManager carManager = new(new EfCarDal());
-            //carManager.Delete(new Car { Id = 2 });
-            //carManager.Add(new Car { Id = 2, BrandId = 2, ColorId = 1, DailyPrice = 375, Description = "deneme", ModelYear = 2015 });
-            //carManager.Update(new Car { Id =3, BrandId = 3, ColorId = 3, DailyPrice = 100, Description = "deneme2", ModelYear = 2021 });
+            //CarManager carManager = new(new EfCarDal());
+            ////carManager.Delete(new Car { Id = 2 });
+            ////carManager.Add(new Car { Id = 2, BrandId = 2, ColorId = 1, DailyPrice = 375, Description = "deneme", ModelYear = 2015 });
+            ////carManager.Update(new Car { Id =3, BrandId = 3, ColorId = 3, DailyPrice = 100, Description = "deneme2", ModelYear = 2021 });
             
-            Console.WriteLine("\n--- " + carManager.GetById(2).Message.ToUpper() + " ---\n" + carManager.GetById(2).Data.Description + "\n");
+            //Console.WriteLine("\n--- " + carManager.GetById(2).Message.ToUpper() + " ---\n" + carManager.GetById(2).Data.Description + "\n");
 
-            Console.WriteLine("--- "+carManager.GetAll().Message.ToUpper() + " ---");
-            foreach (var car in carManager.GetAll().Data)
-            {
-                Console.WriteLine(car.Description);
-            }
+            //Console.WriteLine("--- "+carManager.GetAll().Message.ToUpper() + " ---");
+            //foreach (var car in carManager.GetAll().Data)
+            //{
+            //    Console.WriteLine(car.Description);
+            //}
 
-            Console.WriteLine("\n--- "+carManager.GetCarDetail().Message.ToUpper()+" ---");
-            foreach (var car in carManager.GetCarDetail().Data)
-            {
-                Console.WriteLine(@"{0} - {1} - {2} - {3}",
-                car.Id, car.ColorName, car.BrandName, car.DailyPrice);
-            }
+            //Console.WriteLine("\n--- "+carManager.GetCarDetail().Message.ToUpper()+" ---");
+            //foreach (var car in carManager.GetCarDetail().Data)
+            //{
+            //    Console.WriteLine(@"{0} - {1} - {2} - {3}",
+            //    car.Id, car.ColorName, car.BrandName, car.DailyPrice);
+            //}
             
         }
         private static void UserTest()
         {
-            UserManager userManager = new(new EfUserDal());
-            //userManager.Add(new User {Id=2,FirstName="Veli",LastName="Yılmaz",Email="Veliyılmaz@gmail.com",Password="1412"});
-            //userManager.Update(new User {Id=2,FirstName="Veli",LastName="Yılmaz",Email="Veliyılmaz@gmail.com",Password="5468"});
-            //userManager.Delete(new User {Id=2});
+            //UserManager userManager = new(new EfUserDal());
+            ////userManager.Add(new User {Id=2,FirstName="Veli",LastName="Yılmaz",Email="Veliyılmaz@gmail.com",Password="1412"});
+            ////userManager.Update(new User {Id=2,FirstName="Veli",LastName="Yılmaz",Email="Veliyılmaz@gmail.com",Password="5468"});
+            ////userManager.Delete(new User {Id=2});
 
-            Console.WriteLine("\n--- " + userManager.GetById(1).Message.ToUpper() + " ---\n" + userManager.GetById(1).Data.FirstName + "\n");
+            //Console.WriteLine("\n--- " + userManager.GetById(1).Message.ToUpper() + " ---\n" + userManager.GetById(1).Data.FirstName + "\n");
 
-            Console.WriteLine("--- " + userManager.GetAll().Message.ToUpper() + " ---");
-            foreach (var user in userManager.GetAll().Data)
-            {
-                Console.WriteLine(user.FirstName);
-            }
+            //Console.WriteLine("--- " + userManager.GetAll().Message.ToUpper() + " ---");
+            //foreach (var user in userManager.GetAll().Data)
+            //{
+            //    Console.WriteLine(user.FirstName);
+            //}
         }
         private static void CustomerTest()
         {

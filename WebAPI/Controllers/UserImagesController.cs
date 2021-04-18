@@ -37,7 +37,7 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpGet("getbyuserid")]
-        public IActionResult GetByCarId(int id)
+        public IActionResult GetByUserId(int id)
         {
             var result = _userImageService.GetByUserId(id);
             if (result.Success)
@@ -47,16 +47,6 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpPost("add")]
-        public IActionResult Add([FromForm] UserImage userImage, [FromForm(Name = "UserImage")] IFormFile formFile)
-        {
-            var result = _userImageService.Add(userImage, formFile);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            return BadRequest(result); 
-        }
         [HttpPost("delete")]
         public IActionResult Delete(int id)
         {
@@ -69,6 +59,7 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpPost("update")]
+        [HttpPost("add")]
         public IActionResult Update([FromForm] UserImage userImage, [FromForm(Name = "UserImage")] IFormFile formFile)
         {
             var result = _userImageService.Update(userImage, formFile);

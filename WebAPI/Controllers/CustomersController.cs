@@ -1,11 +1,7 @@
 ﻿using Business.Abstract;
 using Entities.Concrete;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace WebAPI.Controllers
 {
@@ -13,7 +9,7 @@ namespace WebAPI.Controllers
     [ApiController]
     public class CustomersController : ControllerBase
     {
-        ICustomerService  _customerService;
+        private readonly ICustomerService  _customerService;
         public CustomersController(ICustomerService customerService)
         {
             _customerService = customerService;
@@ -29,9 +25,19 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpGet("getbyid")]
-        public IActionResult Getbyid(int id)
+        public IActionResult GetById(int id)
         {
             var result = _customerService.GetById(id);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+        [HttpGet("getbyuserid")]
+        public IActionResult GetByUserId(int userId)
+        {
+            var result = _customerService.GetByUserId(userId);
             if (result.Success)
             {
                 return Ok(result);

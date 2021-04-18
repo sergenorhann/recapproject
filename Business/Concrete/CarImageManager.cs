@@ -21,16 +21,9 @@ namespace Business.Concrete
             _carImageDal = carImageDal;
         }
        
-        public IResult Add(CarImage carImage, IFormFile formFile)
+        public IResult Add(CarImage carImage)
         {
-            var result = BusinessRules.Run(
-                CheckIfCarImageLimitExceeded(carImage.CarId)
-            );
-            if (result != null)
-            {
-                return result;
-            }
-            carImage.ImagePath = formFile != null ? FileHelper.Add(formFile) : @"\Images\carDefault.jpg";
+            carImage.ImagePath =  @"\Images\carDefault.jpg";
             _carImageDal.Add(carImage);
             return new SuccessResult(Messages.CarImageAdded);
         }
@@ -67,22 +60,12 @@ namespace Business.Concrete
         }
         public IResult Update(CarImage carImage, IFormFile formFile)
         {
-            var oldPath = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..\\..\\..\\wwwroot")) +
-                          _carImageDal.Get(ci => ci.Id == carImage.CarId).ImagePath;
-
-            carImage.ImagePath = FileHelper.Update(oldPath, formFile);
+            var result = _carImageDal.Get(ci => ci.CarId == carImage.CarId);
+            var oldPath = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..\\..\\..\\wwwroot")) + result.ImagePath;
+            carImage.Id = result.Id;
+            carImage.ImagePath = result.ImagePath == @"\Images\carDefault.jpg" ? FileHelper.Add(formFile) : FileHelper.Update(oldPath, formFile);
             _carImageDal.Update(carImage);
             return new SuccessResult(Messages.CarImageUpdated);
         }
-        private IResult CheckIfCarImageLimitExceeded(int id)
-        {
-            var result = _carImageDal.GetAll(ci => ci.CarId == id).Count;
-            if (result >= 5)
-            {
-                return new ErrorResult(Messages.CarImageLimitExceeded);
-            }
-            return new SuccessResult();
-        }
-
     }
 }
