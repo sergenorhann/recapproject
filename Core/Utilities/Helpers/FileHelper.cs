@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using System;
 using System.IO;
+using System.Linq;
 
 
 namespace Core.Utilities.Helpers
@@ -18,7 +19,7 @@ namespace Core.Utilities.Helpers
                 formFile.CopyTo(stream);
             }
             File.Move(sourcePath, newPath);
-            return path2;
+            return path2.Replace("\\", "/");
         }
 
         public static string Update(string sourcePath, IFormFile formFile)
@@ -28,17 +29,17 @@ namespace Core.Utilities.Helpers
             {
                 formFile.CopyTo(stream);
             }
-
-            if (sourcePath != @"\Images\userDefault.jpg" && sourcePath != @"\Images\carDefault.jpg")
+            if (sourcePath.Split('/').Last() !=  @"userDefault.jpg" && sourcePath.Split('/').Last() != @"carDefault.jpg")
             {
                 File.Delete(sourcePath);
             }
-            return path2;
+            return path2.Replace("\\", "/");
         }
 
         public static IResult Delete(string path)
         {
-            if (path != @"\Images\userDefault.jpg" && path != @"\Images\carDefault.jpg")
+            path = path.Replace("/", "\\");
+            if (path.Split('\\').Last() != @"userDefault.jpg" && path.Split('\\').Last() != @"carDefault.jpg")
             {
                 File.Delete(path);
             }

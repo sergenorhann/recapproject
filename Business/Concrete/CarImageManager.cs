@@ -23,7 +23,7 @@ namespace Business.Concrete
        
         public IResult Add(CarImage carImage)
         {
-            carImage.ImagePath =  @"\Images\carDefault.jpg";
+            carImage.ImagePath =  @"/Images/carDefault.jpg";
             _carImageDal.Add(carImage);
             return new SuccessResult(Messages.CarImageAdded);
         }

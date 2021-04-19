@@ -22,7 +22,7 @@ namespace Business.Concrete
         
         public IResult Add(UserImage userImage)
         {
-            userImage.ImagePath = @"\Images\userDefault.jpg";
+            userImage.ImagePath = @"/Images/userDefault.jpg";
             _userImageDal.Add(userImage);
             return new SuccessResult(Messages.UserImageAdded);
         }
